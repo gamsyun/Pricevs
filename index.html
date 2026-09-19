@@ -170,9 +170,9 @@
   <!-- 3. 生鲜重量 -->
   <div id="panel-weight" class="panel active">
     <div class="card">
-      <div class="input-group"><label>Name</lable><input type="text" id="w-title" oninput="calcWeight()"></div>
       <div class="input-group"><label>Price</label><input type="number" inputmode="decimal" id="w-price" oninput="calcWeight()" onkeydown="handleEnter(event, 'w-g')"></div>
       <div class="input-group"><label>Gram</label><input type="number" inputmode="decimal" id="w-g" oninput="calcWeight()" onkeydown="handleEnter(event)"></div>
+      <div class="input-group"><label>Name</lable><input type="text" id="w-title" oninput="calcWeight()"></div>
       <div class="result-box" id="w-res">Hello？</div>
       <div class="btn-group">
         <button class="btn-clear" onclick="clearPanel('panel-weight', calcWeight)">Clean</button>
@@ -504,9 +504,9 @@
       if (text.includes("等待输入")) return;
 
       navigator.clipboard.writeText(text).then(() => {
-        alert("已复制到剪贴板，可直接粘贴至 Notes！");
+        alert("Done.");
       }).catch(() => {
-        alert("复制失败，请手动选择文本");
+        alert("Failed.");
       });
     }
 
