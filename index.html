@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>购物因素 PriceVS</title>
+  <title>PriceVS</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="icon.png">
-  <meta name="apple-mobile-web-app-title" content="购物因素 PriceVS">
+  <meta name="apple-mobile-web-app-title" content="PriceVS 购物因素">
   
   <!-- 动态状态栏颜色适配 -->
   <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
@@ -128,26 +128,26 @@
   <div id="panel-general" class="panel">
     <div class="card">
       <div class="input-group">
-        <label>总价格 (元)</label>
+        <label>Price</label>
         <input type="number" inputmode="decimal" id="g-price" oninput="calcGeneral()" onkeydown="handleEnter(event, 'g-qty')">
       </div>
       <div class="input-group">
-        <label>数量 / 容量</label>
+        <label>Quantity / Capacity</label>
         <div class="input-with-select">
           <input type="number" inputmode="decimal" id="g-qty" oninput="calcGeneral()" onkeydown="handleEnter(event)">
           <select id="g-unit" onchange="calcGeneral()">
-            <option value="ml">毫升 (ml)</option>
-            <option value="L">升 (L)</option>
-            <option value="g">克 (g)</option>
-            <option value="kg">千克 (kg)</option>
+            <option value="ml">ml</option>
+            <option value="L">L</option>
+            <option value="g">g</option>
+            <option value="kg">kg</option>
             <option value="item">个/包/件</option>
           </select>
         </div>
       </div>
-      <div class="result-box" id="g-res">等待输入...</div>
+      <div class="result-box" id="g-res"></div>
       <div class="btn-group">
-        <button class="btn-clear" onclick="clearPanel('panel-general', calcGeneral)">清空</button>
-        <button class="btn-copy" onclick="copyResult('g-res')">复制到 Notes</button>
+        <button class="btn-clear" onclick="clearPanel('panel-general', calcGeneral)">Clean</button>
+        <button class="btn-copy" onclick="copyResult('g-res')">Copy Result</button>
       </div>
     </div>
   </div>
@@ -155,14 +155,14 @@
   <!-- 2. 纸巾 -->
   <div id="panel-tissue" class="panel">
     <div class="card">
-      <div class="input-group"><label>总价格 (元)</label><input type="number" inputmode="decimal" id="t-price" oninput="calcTissue()" onkeydown="handleEnter(event, 't-packs')"></div>
-      <div class="input-group"><label>总包数</label><input type="number" inputmode="decimal" id="t-packs" oninput="calcTissue()" onkeydown="handleEnter(event, 't-pulls')"></div>
-      <div class="input-group"><label>一包多少抽</label><input type="number" inputmode="decimal" id="t-pulls" oninput="calcTissue()" onkeydown="handleEnter(event, 't-layers')"></div>
-      <div class="input-group"><label>一抽多少层</label><input type="number" inputmode="decimal" id="t-layers" value="3" oninput="calcTissue()" onkeydown="handleEnter(event)"></div>
-      <div class="result-box" id="t-res">等待输入...</div>
+      <div class="input-group"><label>Price</label><input type="number" inputmode="decimal" id="t-price" oninput="calcTissue()" onkeydown="handleEnter(event, 't-packs')"></div>
+      <div class="input-group"><label>Packs</label><input type="number" inputmode="decimal" id="t-packs" oninput="calcTissue()" onkeydown="handleEnter(event, 't-pulls')"></div>
+      <div class="input-group"><label>Pulls</label><input type="number" inputmode="decimal" id="t-pulls" oninput="calcTissue()" onkeydown="handleEnter(event, 't-layers')"></div>
+      <div class="input-group"><label>Layers</label><input type="number" inputmode="decimal" id="t-layers" value="3" oninput="calcTissue()" onkeydown="handleEnter(event)"></div>
+      <div class="result-box" id="t-res"></div>
       <div class="btn-group">
-        <button class="btn-clear" onclick="clearPanel('panel-tissue', calcTissue)">清空</button>
-        <button class="btn-copy" onclick="copyResult('t-res')">复制到 Notes</button>
+        <button class="btn-clear" onclick="clearPanel('panel-tissue', calcTissue)">Clean</button>
+        <button class="btn-copy" onclick="copyResult('t-res')">Copy Result</button>
       </div>
     </div>
   </div>
@@ -173,7 +173,7 @@
       <div class="input-group"><label>Price</label><input type="number" inputmode="decimal" id="w-price" oninput="calcWeight()" onkeydown="handleEnter(event, 'w-g')"></div>
       <div class="input-group"><label>Gram</label><input type="number" inputmode="decimal" id="w-g" oninput="calcWeight()" onkeydown="handleEnter(event)"></div>
       <div class="input-group"><label>Name</lable><input type="text" id="w-title" oninput="calcWeight()"></div>
-      <div class="result-box" id="w-res">Hello？</div>
+      <div class="result-box" id="w-res"></div>
       <div class="btn-group">
         <button class="btn-clear" onclick="clearPanel('panel-weight', calcWeight)">Clean</button>
         <button class="btn-copy" onclick="copyResult('w-res')">Copy Result</button>
@@ -198,8 +198,8 @@
       <div id="egg-inputs"></div>
       <div class="result-box" id="egg-res">等待输入...</div>
       <div class="btn-group">
-        <button class="btn-clear" onclick="clearPanel('panel-egg', calcEgg)">清空</button>
-        <button class="btn-copy" onclick="copyResult('egg-res')">复制到 Notes</button>
+        <button class="btn-clear" onclick="clearPanel('panel-egg', calcEgg)">Clean</button>
+        <button class="btn-copy" onclick="copyResult('egg-res')">Copy Result</button>
       </div>
     </div>
   <div class="card">
@@ -280,7 +280,7 @@
       const unitType = document.getElementById('g-unit').value;
       
       if (!p || !q) {
-        document.getElementById('g-res').innerHTML = '等待输入...';
+        document.getElementById('g-res').innerHTML = '...';
         return;
       }
 
@@ -306,11 +306,13 @@
       }
 
       const unitPrice = p / baseQty;
+      const uPh = p / baseQty *100
       
       document.getElementById('g-res').innerHTML = 
-        `<div class="result-title">【通用计算结果】</div>` +
-        `<div class="result-item">总价: ¥${fmt(p)}</div>` +
-        `<div class="result-item">单价: ¥${fmt(unitPrice, 4)} / ${displayUnit}</div>`;
+        `<div class="result-title">⬇ 100 UNIT: </div>` +
+        `<div class="result-Title">¥${fmt(uPh)} </div>` +
+        `<div class="result-title"><br><br>⬇ Per ${displayUnit}: </div>` +
+        `<div class="result-item"> ¥${fmt(unitPrice, 4)}</div>`;
     }
 
     /* ---------------- 2. 纸巾 ---------------- */
@@ -320,7 +322,7 @@
       const pulls = parseFloat(document.getElementById('t-pulls').value);
       const layers = parseFloat(document.getElementById('t-layers').value) || 1;
       if (!p || !packs || !pulls) {
-        document.getElementById('t-res').innerHTML = '等待输入...';
+        document.getElementById('t-res').innerHTML = '...';
         return;
       }
 
@@ -329,20 +331,20 @@
       const per100Pulls = perPull * 100;
 
       document.getElementById('t-res').innerHTML = 
-        `<div class="result-title">【纸巾计算结果】</div>` +
-        `<div class="result-item">总价: ¥${fmt(p)} (${packs}包)</div>` +
-        `<div class="result-item">包单价: ¥${fmt(perPack)} / 包</div>` +
-        `<div class="result-item">抽单价: ¥${fmt(perPull, 4)} / 抽 (${layers}层)</div>` +
-        `<div class="result-item">百抽换算: ¥${fmt(per100Pulls)} / 百抽</div>`;
+        `<div class="result-item">${fmt(p)} (${packs} Packs)</div>` +
+        `<div class="result-title">⬇ 100 Pulls</div>` +
+        `<div class="result-Title"> ¥${fmt(per100Pulls)} </div>` +
+        `<div class="result-item">1️⃣Per Pack: ¥${fmt(perPack)}</div>` +
+        `<div class="result-item">2️⃣Per Pull: ¥${fmt(perPull, 4)} </div>` ;
     }
 
     /* ---------------- 3. 生鲜重量 ---------------- */
     function calcWeight() {
       const p = parseFloat(document.getElementById('w-price').value);
       const g = parseFloat(document.getElementById('w-g').value);
-      const F = parseFloat(document.getElementById('w-title').value);
+      const F = document.getElementById('w-title').value;
       if (!p || !g) {
-        document.getElementById('w-res').innerHTML = 'Hello?';
+        document.getElementById('w-res').innerHTML = '...';
         return;
       }
 
@@ -350,10 +352,11 @@
       const per1k = per500g * 2;
 
       document.getElementById('w-res').innerHTML = 
-        `<div class="result-title">【${fmt(F)}】</div>` +
-        `<div class="result-item"> 💰¥${fmt(p)} 🈶 ${g}g</div>` +
-        `<div class="result-item"> 1️⃣ ¥${fmt(per500g)} / 斤</div>` +
-        `<div class="result-item"> 2️⃣ ¥${fmt(per1k)} / kg</div>`;
+        `<div class="result-title">${F}</div>` +
+        `<div class="result-item"> ¥${fmt(p)} (${g}g)</div>` +
+        `<div class="result-title"> ⬇Result</div>` +
+        `<div class="result-Title"> 1️⃣ ¥${fmt(per500g)} / 斤</div>` +
+        `<div class="result-item">2️⃣ ¥${fmt(per1k)} / kg</div>`;
     }
 
     /* ---------------- 4. 鸡蛋 ---------------- */
