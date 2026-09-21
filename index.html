@@ -188,15 +188,16 @@
   <div id="panel-egg" class="panel">
     <div class="card">
       <div class="input-group">
-        <label>模式选择</label>
+        <label>By...
+        </label>
         <select id="egg-mode" onchange="toggleEggMode()">
-          <option value="A">盒装/超市（知重量与数量）</option>
-          <option value="B1">菜市场（按板/按个，目测重量）</option>
-          <option value="B2">菜市场（按斤买）</option>
+          <option value="A">By Grams & Numbers</option>
+          <option value="B1">By Quantities</option>
+          <option value="B2">By Ratio</option>
         </select>
       </div>
       <div id="egg-inputs"></div>
-      <div class="result-box" id="egg-res">等待输入...</div>
+      <div class="result-box" id="egg-res"></div>
       <div class="btn-group">
         <button class="btn-clear" onclick="clearPanel('panel-egg', calcEgg)">Clean</button>
         <button class="btn-copy" onclick="copyResult('egg-res')">Copy Result</button>
@@ -365,24 +366,25 @@
       const container = document.getElementById('egg-inputs');
       if (mode === 'A') {
         container.innerHTML = `
-          <div class="input-group"><label>一盒总价 (元)</label><input type="number" inputmode="decimal" id="e-price" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-weight')"></div>
-          <div class="input-group"><label>一盒总重 (克 g)</label><input type="number" inputmode="decimal" id="e-weight" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-count')"></div>
-          <div class="input-group"><label>总个数</label><input type="number" inputmode="decimal" id="e-count" oninput="calcEgg()" onkeydown="handleEnter(event)"></div>`;
+          <div class="input-group"><label>The Price</label><input type="number" inputmode="decimal" id="e-price" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-weight')"></div>
+          <div class="input-group"><label>The weight</label><input type="number" inputmode="decimal" id="e-weight" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-count')"></div>
+          <div class="input-group"><label>The number of eggs</label><input type="number" inputmode="decimal" id="e-count" oninput="calcEgg()" onkeydown="handleEnter(event)"></div>`;
       } else if (mode === 'B1') {
         container.innerHTML = `
-          <div class="input-group"><label>价格 (元/板或按个数)</label><input type="number" inputmode="decimal" id="e-price" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-count')"></div>
-          <div class="input-group"><label>个数</label><input type="number" inputmode="decimal" id="e-count" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-single-g')"></div>
-          <div class="input-group"><label>单蛋目测预估重量(g，默认55g)</label><input type="number" inputmode="decimal" id="e-single-g" value="55" oninput="calcEgg()" onkeydown="handleEnter(event)"></div>`;
+          <div class="input-group"><label>The Price</label><input type="number" inputmode="decimal" id="e-price" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-count')"></div>
+          <div class="input-group"><label>The number of eggs</label><input type="number" inputmode="decimal" id="e-count" oninput="calcEgg()" onkeydown="handleEnter(event, 'e-single-g')"></div>
+          <div class="input-group"><label>Approximately Weight (Grams)</label><input type="number" inputmode="decimal" id="e-single-g" value="55" oninput="calcEgg()" onkeydown="handleEnter(event)"></div>`;
       } else {
         container.innerHTML = `
-          <div class="input-group"><label>一斤价格 (元/斤)</label><input type="number" inputmode="decimal" id="e-jin-price" oninput="calcEgg()" onkeydown="handleEnter(event)"></div>`;
+          <div class="input-group"><label>How many for half Kilo(斤)?</label><input type="number" inputmode="decimal" id="e-jin-price" oninput="calcEgg()" onkeydown="handleEnter(event)">
+          <div class="input-group"><label>Approximately Weight (Grams)</label><input type="number" inputmode="decimal" id="e-single-g" value="55" oninput="calcEgg()" onkeydown="handleEnter(event)"></div>`;
       }
-      document.getElementById('egg-res').innerHTML = "等待输入...";
+      document.getElementById('egg-res').innerHTML = "";
     }
 
     function calcEgg() {
       const mode = document.getElementById('egg-mode').value;
-      let resHTML = `<div class="result-title">【鸡蛋比价结果】</div>`;
+      /*let resHTML = `<div class="result-title">【鸡蛋比价结果】</div>`;*/
 
       if (mode === 'A') {
         const p = parseFloat(document.getElementById('e-price')?.value);
@@ -394,10 +396,10 @@
         const weightPerEgg = w / c;
         const jinPrice = (p / w) * 500;
 
-        resHTML += `
-          <div class="result-item">单蛋价格: ¥${fmt(perEgg)} / 个</div>
-          <div class="result-item">单蛋重量: ${fmt(weightPerEgg, 1)} 克</div>
-          <div class="result-item">换算斤价: ¥${fmt(jinPrice)} / 斤</div>`;
+        resHTML = `
+          <div class="result-title">🥚${fmt(weightPerEgg, 1)} g / ¥${fmt(perEgg)}</div>
+          <div class="result-item">⬇</div>
+          <div class="result-Title">¥${fmt(jinPrice)} / 斤</div>`;
       } else if (mode === 'B1') {
         const p = parseFloat(document.getElementById('e-price')?.value);
         const c = parseFloat(document.getElementById('e-count')?.value);
@@ -407,19 +409,22 @@
         const perEgg = p / c;
         const estTotalWeight = c * singleG;
         const jinPrice = (p / estTotalWeight) * 500;
+        const KiliPrice = (p / estTotalWeight) * 1000;
 
-        resHTML += `
-          <div class="result-item">单蛋价格: ¥${fmt(perEgg)} / 个</div>
-          <div class="result-item">预估总重: ${estTotalWeight} 克 (按${singleG}g/个)</div>
-          <div class="result-item">估算斤价: ¥${fmt(jinPrice)} / 斤</div>`;
+        resHTML = `
+          <div class="result-title">🥚Appr.${singleG}g / ¥${fmt(perEgg)}</div>
+          <div class="result-item">⚖️ ${estTotalWeight}g<br>⬇</div>
+          <div class="result-item">¥${fmt(jinPrice)} / 斤</div>
+          <div class="result-item">¥${fmt(KiliPrice)} / Kilo</div>`;
       } else {
         const jinP = parseFloat(document.getElementById('e-jin-price')?.value);
-        if (!jinP) return;
-        const estPerEgg = (jinP / 500) * 55;
+        const weight = parseFloat(document.getElementById('e-single-g')?.value);
+        if (!jinP || !weight) return;
+        const estPerEgg = (jinP / 500) * weight;
 
-        resHTML += `
-          <div class="result-item">直接斤价: ¥${fmt(jinP)} / 斤</div>
-          <div class="result-item">预估单蛋: ¥${fmt(estPerEgg)} / 个 (按55g估算)</div>`;
+        resHTML = `
+          <div class="result-item">¥${fmt(jinP)} / 斤<br>⬇</div>
+          <div class="result-Titile">🥚Appr. ¥${fmt(estPerEgg)} (If ${fmt(weight)}g)</div>`;
       }
 
       document.getElementById('egg-res').innerHTML = resHTML;
